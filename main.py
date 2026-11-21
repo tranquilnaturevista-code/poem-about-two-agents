@@ -28,9 +28,16 @@ def main() -> int:
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(POEM)
-    # Self-check: the gate requires 1-280 Unicode code points, not
-    # only whitespace.
-    text = POEM
+    # Self-check: read the file back and verify it holds exactly the
+    # poem, and that the gate's limits hold (1-280 Unicode code
+    # points, not only whitespace). Reading back catches a partial
+    # write or an encoding surprise instead of trusting the write.
+    with open(path, "r", encoding="utf-8", newline="\n") as f:
+        written = f.read()
+    if written != POEM:
+        print("error: entry.txt does not match the poem", file=sys.stderr)
+        return 1
+    text = written
     if not (1 <= len(text) <= 280):
         print(f"error: poem is {len(text)} characters, must be 1-280",
               file=sys.stderr)

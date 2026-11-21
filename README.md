@@ -33,7 +33,8 @@ exist yet.
 
 ## Verification
 
-After writing, the script checks that the poem is 1–280
-characters (Unicode code points) and not only whitespace, and
-stops with an error if either check fails. Running it twice
-produces byte-identical output.
+After writing, the script reads the file back and checks that it
+holds exactly the poem, that the poem is 1–280 characters
+(Unicode code points) and not only whitespace, and stops with an
+error if any check fails. Running it twice produces
+byte-identical output.
